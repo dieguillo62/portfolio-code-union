@@ -1,0 +1,284 @@
+---
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  github?: string | null;
+  demo?: string | null;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  avatar: string | null;
+  location: string;
+  available: boolean;
+  links: {
+    github?: string | null;
+    linkedin?: string | null;
+    portfolio?: string | null;
+    email?: string | null;
+  };
+  skills: string[];
+  projects: Project[];
+  index: number;
+}
+
+const { id, name, role, bio, avatar, location, available, links, skills, projects, index } = Astro.props;
+
+// Generate initials for avatar fallback
+const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+
+// Cycle accent colors per member
+const colors = ['#d4500a', '#2563eb', '#2d7a3a', '#7c3aed', '#b91c1c', '#0369a1'];
+const memberColor = colors[index % colors.length];
+---
+
+<article class="member-card" id={`member-${id}`} style={`--mc: ${memberColor}`}>
+  <!-- Header -->
+  <div class="mc-header">
+    <div class="mc-avatar">
+      {avatar
+        ? <img src={avatar} alt={name} width="52" height="52" />
+        : <span class="mc-initials">{initials}</span>
+      }
+    </div>
+    <div class="mc-identity">
+      <h3 class="mc-name">{name}</h3>
+      <p class="mc-role">{role}</p>
+      <div class="mc-meta">
+        <span class="mc-location">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          {location}
+        </span>
+        <span class={`mc-status ${available ? 'available' : 'busy'}`}>
+          <span class="status-pip"></span>
+          {available ? 'disponible' : 'no disponible'}
+        </span>
+      </div>
+    </div>
+    <div class="mc-links">
+      {links.github && (
+        <a href={links.github} target="_blank" rel="noopener" aria-label="GitHub" class="icon-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      )}
+      {links.linkedin && (
+        <a href={links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn" class="icon-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      )}
+      {links.portfolio && (
+        <a href={links.portfolio} target="_blank" rel="noopener" aria-label="Portfolio" class="icon-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </a>
+      )}
+      {links.email && (
+        <a href={`mailto:${links.email}`} aria-label="Email" class="icon-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      )}
+    </div>
+  </div>
+
+  <!-- Bio -->
+  <p class="mc-bio">{bio}</p>
+
+  <!-- Skills -->
+  <div class="mc-skills">
+    {skills.map(s => <span class="skill-chip">{s}</span>)}
+  </div>
+
+  <!-- Personal projects -->
+  {projects.length > 0 && (
+    <div class="mc-projects">
+      <p class="mc-section-label">proyectos personales</p>
+      <div class="mc-projects-grid">
+        {projects.map(p => (
+          <div class="mini-card">
+            <div class="mini-card-top">
+              <span class="mini-card-title">{p.title}</span>
+              <div class="mini-links">
+                {(p.github || p.demo) && (
+                  <button
+                    class="mini-link mini-preview"
+                    data-preview
+                    data-title={p.title}
+                    data-description={p.description}
+                    data-tags={JSON.stringify(p.tags)}
+                    data-github={p.github || ''}
+                    data-demo={p.demo || ''}
+                    aria-label="Vista previa"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                )}
+                {p.github && (
+                  <a href={p.github} target="_blank" rel="noopener" class="mini-link" aria-label="GitHub">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                  </a>
+                )}
+                {p.demo && (
+                  <a href={p.demo} target="_blank" rel="noopener" class="mini-link" aria-label="Demo">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                )}
+              </div>
+            </div>
+            <p class="mini-card-desc">{p.description}</p>
+            <div class="mini-tags">
+              {p.tags.map(t => <span>{t}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</article>
+
+<style>
+  .member-card {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color var(--t), box-shadow var(--t);
+  }
+
+  .member-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--mc);
+    opacity: 0;
+    transition: opacity var(--t);
+  }
+
+  .member-card:hover { border-color: color-mix(in srgb, var(--mc) 30%, var(--border)); box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .member-card:hover::before { opacity: 1; }
+
+  /* Header */
+  .mc-header { display: flex; gap: 0.85rem; align-items: flex-start; }
+
+  .mc-avatar {
+    width: 52px; height: 52px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--mc) 15%, #fff);
+    border: 1.5px solid color-mix(in srgb, var(--mc) 25%, var(--border));
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mc-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .mc-initials {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--mc);
+  }
+
+  .mc-identity { flex: 1; min-width: 0; }
+  .mc-name { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+  .mc-role { font-size: 0.72rem; color: var(--mc); font-weight: 500; margin-top: 1px; }
+
+  .mc-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; align-items: center; }
+  .mc-location { display: flex; align-items: center; gap: 0.25rem; font-size: 0.68rem; color: var(--text-3); }
+
+  .mc-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.68rem; }
+  .mc-status.available { color: var(--green); }
+  .mc-status.busy { color: var(--text-3); }
+
+  .status-pip {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: currentColor; flex-shrink: 0;
+  }
+  .mc-status.available .status-pip { animation: blink 2s ease infinite; }
+  @keyframes blink {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+  }
+
+  .mc-links { display: flex; gap: 0.3rem; flex-shrink: 0; }
+
+  .icon-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    transition: all var(--t);
+  }
+  .icon-btn:hover { color: var(--mc); border-color: var(--mc); background: color-mix(in srgb, var(--mc) 8%, transparent); }
+
+  /* Bio */
+  .mc-bio { font-size: 0.8rem; color: var(--text-2); line-height: 1.7; }
+
+  /* Skills */
+  .mc-skills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .skill-chip {
+    font-size: 0.67rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--mc) 8%, var(--bg));
+    color: color-mix(in srgb, var(--mc) 70%, var(--text));
+    border: 1px solid color-mix(in srgb, var(--mc) 20%, var(--border));
+    letter-spacing: 0.02em;
+    transition: background var(--t);
+  }
+  .skill-chip:hover { background: color-mix(in srgb, var(--mc) 15%, var(--bg)); }
+
+  /* Projects */
+  .mc-projects { display: flex; flex-direction: column; gap: 0.75rem; }
+  .mc-section-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    border-top: 1px solid var(--border);
+    padding-top: 0.9rem;
+  }
+  .mc-projects-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .mini-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 0.85rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    transition: border-color var(--t);
+  }
+  .mini-card:hover { border-color: color-mix(in srgb, var(--mc) 35%, var(--border)); }
+
+  .mini-card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .mini-card-title { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; color: var(--text); }
+  .mini-links { display: flex; gap: 0.3rem; }
+  .mini-link {
+    display: flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    color: var(--text-3);
+    transition: all var(--t);
+  }
+  .mini-link:hover { color: var(--mc); border-color: var(--mc); }
+  button.mini-link { background: transparent; cursor: pointer; }
+  .mini-preview { color: var(--mc); }
+
+  .mini-card-desc { font-size: 0.75rem; color: var(--text-2); line-height: 1.6; }
+  .mini-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .mini-tags span {
+    font-size: 0.63rem;
+    color: var(--text-3);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+</style>
