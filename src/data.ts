@@ -4,7 +4,7 @@
 
 // ── Información del equipo / empresa ────────────────────
 export const teamInfo = {
-  name: "DevTeam",
+  name: "CodeUnion",
   tagline: "Construimos productos digitales que importan.",
   description:
     "Somos un equipo de desarrolladores apasionados por crear soluciones elegantes a problemas reales. Trabajamos de forma colaborativa, con código limpio y enfoque en el usuario.",
@@ -13,7 +13,7 @@ export const teamInfo = {
   github: "https://github.com/devteam",
   linkedin: "https://linkedin.com/company/devteam",
   website: "https://devteam.co",
-  founded: "2022",
+  founded: "2025",
 };
 
 // ── Proyectos colaborativos del equipo ───────────────────
@@ -66,10 +66,10 @@ export const teamProjects = [
 
 export const members = [
   {
-    id: "ana",
-    name: "Ana García",
-    role: "Tech Lead & Full Stack",
-    bio: "Arquitecta de software con 6 años de experiencia. Especialista en sistemas distribuidos y diseño de APIs. Le apasiona el código limpio y los systems design.",
+    id: "pinzon",
+    name: "Santiago Pinzon",
+    role: "Jefe técnico y Arquitecto de automatización",
+    bio: "Liderazgo técnico y automatización de procesos. Especialista en arquitectura de software, CI/CD y optimización de flujos de desarrollo. Apoya al equipo en resolver problemas complejos y escalar soluciones.",
     avatar: null, // "https://..." o null para avatar con iniciales
     location: "Bogotá",
     available: true,
@@ -79,7 +79,7 @@ export const members = [
       portfolio: null,
       email: "ana@devteam.co",
     },
-    skills: ["TypeScript", "Go", "Kubernetes", "PostgreSQL", "System Design"],
+    skills: ["Software Architecture", "Automation", "CI/CD", "DevOps", "System Optimization"],
     projects: [
       {
         title: "CLI de Deployments",
@@ -100,20 +100,20 @@ export const members = [
     ],
   },
   {
-    id: "carlos",
-    name: "Carlos Méndez",
-    role: "Frontend Engineer",
-    bio: "Frontend con obsesión por la UI y la accesibilidad. 4 años construyendo interfaces que la gente disfruta usar. Contribuidor activo de proyectos open source.",
+    id: "Diego",
+    name: "Diego Rodriguez",
+    role: "Desarrollador de negocios y Gestor de producto",
+    bio: "Gestión de proyectos y relación con clientes. Conecta necesidades de negocio con soluciones tecnológicas y coordina el desarrollo de software. Aprende rápido y se enfoca en crear productos útiles para empresas.",
     avatar: null,
-    location: "Medellín",
-    available: false,
+    location: "Bogotá",
+    available: true,
     links: {
       github: "https://github.com/carlosmendez",
       linkedin: "https://linkedin.com/in/carlosmendez",
       portfolio: "https://carlosmendez.dev",
       email: "carlos@devteam.co",
     },
-    skills: ["React", "Astro", "CSS / Animation", "Figma", "Accessibility"],
+    skills: ["Client Communication", "Product Planning", "Project Coordination", "SQL Basics", "Rapid Learning"],
     projects: [
       {
         title: "Design System",
@@ -134,12 +134,12 @@ export const members = [
     ],
   },
   {
-    id: "sofia",
-    name: "Sofía Restrepo",
-    role: "Backend & DevOps",
-    bio: "Ingeniería de backend e infraestructura cloud. Especialista en CI/CD, monitoreo y performance. Reduce costos de infra sin sacrificar uptime.",
+    id: "Daniel",
+    name: "Daniel Lopez",
+    role: "Desarrollador de backend",
+    bio: "Desarrollo backend enfocado en sistemas de usuarios y mantenimiento de plataformas. Trabaja en autenticación, control de accesos y estabilidad del sistema, asegurando un funcionamiento confiable.",
     avatar: null,
-    location: "Cali",
+    location: "Bogotá",
     available: true,
     links: {
       github: "https://github.com/sofiarestrepo",
@@ -147,7 +147,7 @@ export const members = [
       portfolio: null,
       email: "sofia@devteam.co",
     },
-    skills: ["Python", "AWS", "Terraform", "Prometheus", "FastAPI"],
+    skills: ["Backend Development", "User Authentication", "Database Management", "Access Control", "System Maintenance"],
     projects: [
       {
         title: "Infrastructure as Code Toolkit",
